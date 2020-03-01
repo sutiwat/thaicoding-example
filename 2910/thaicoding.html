@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>React Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    const containerElem = document.getElementById('root');
+
+    class ClassBasedComponent extends React.Component{
+  
+      constructor(){
+        super()
+        this.state = { 
+          login: '',
+          password: ''
+        }
+      }
+
+      handleSubmit = (event) =>{
+        event.preventDefault()
+        console.log('Form sub')
+        console.log(this.state)
+      }
+
+      handleChange = (event)=>{
+        console.log('event name ' + event.target.name)
+        console.log('event value ' + event.target.value)
+        const newState = {}
+        newState[event.target.name] = event.target.value
+        this.setState(newState)
+      }
+
+      render(){
+        return (
+          <div>
+            <h1>Hello React</h1>
+            <h2>Thaicoding.net</h2>
+            <form onSubmit={this.handleSubmit}>
+              <input type="text" placeholder="Login" name="login" onChange={this.handleChange}  /><br/>
+              <input type="password" placeholder="Password" name="password" onChange={this.handleChange}  /><br/>
+              <button>Submit</button>
+            </form>
+          </div>
+        )
+      }
+    }
+
+    class App extends React.Component{
+      render(){
+        return(
+          <div>
+            <ClassBasedComponent />
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<App />, containerElem)
+
+  </script>
+</body>
+
+</html>
